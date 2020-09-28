@@ -28,22 +28,22 @@ do
 
   if [[ X -ge Y ]]; then #landscape
     MODE="landscape"
-    X=$(expr $X - $( expr $(expr $MAXX - $X) \* -1))
-    Y=$(expr $Y - $( expr $(expr $MAXX - $X) \* -1))
+    F=$(echo $X / $MAXX | bc -l)
+    X=$MAXX
+    Y=$(echo $Y / $F | bc)
   elif [[ X -lt Y ]]; then #portrait
     MODE="portrait"
-    X=$(expr $X - $(expr( $(expr $MAXY - $Y) \* -1)))
-    Y=$(expr $Y - $(expr( $(expr $MAXY - $Y) \* -1)))
+    F=$(echo $Y / $MAXY | bc -l)
+    Y=$MAXY
+    X=$(echo $X / $F | bc)
   fi
 
   #minification
   echo "minification of ${IMG} :         ${IX}x${IY} -> ${X}x${Y} - ${MODE}"
   convert "${IMG}" -resize "${X}x${Y}" "./min/${IMG}"
 
-  # check if resolution is > a max variable
 
-  # resize to max value
-
+  # todo:
   # check weight while it > max compresse 10% ?
 
 
